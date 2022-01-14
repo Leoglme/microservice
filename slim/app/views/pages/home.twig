@@ -1,0 +1,69 @@
+{% extends "layouts/default.twig" %}
+
+{% block content %}
+    <div class="col-lg-12">
+        <div class="chat-app">
+            <div id="plist" class="people-list">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search...">
+                </div>
+                <ul class="list-unstyled chat-list mt-2 mb-0">
+                    {% for user in users %}
+                        <li class="clearfix">
+                            <img src="/assets/images/no-user.jpg" alt="Vincent">
+                            <div class="about">
+                                <div class="name">{{ user.firstname }} {{ user.lastname }}</div>
+                                <div class="status"><i class="fa fa-circle offline"></i> left 7 mins ago</div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="chat">
+                <div class="chat-history">
+                    <ul class="m-b-0">
+                        <li class="clearfix my-message">
+                            <img class="message_avatar" src="/assets/images/no-user.jpg" alt="jennifer">
+                            <div class="message-data">
+                                <span class="message-sender">you<span class="message-data-time">4m</span></span>
+                                <div class="message">Are we meeting todeffeay?</div>
+                            </div>
+                        </li>
+                        {% for message in messages %}
+                            <li class="clearfix other-message">
+                                <img class="message_avatar" src="/assets/images/no-user.jpg" alt="jennifer">
+                                <div class="message-data">
+                                            <span class="message-sender">
+                                                {{ message.sender.firstname }} {{ message.sender.lastname }}
+                                                <span class="message-data-time">4m</span>
+                                            </span>
+                                    <div class="message">frrfrf{{ message.content }}</div>
+                                </div>
+                            </li>
+                        {% endfor %}
+
+                        <li class="clearfix my-message">
+                            <img class="message_avatar" src="/assets/images/no-user.jpg" alt="jennifer">
+                            <div class="message-data">
+                                <span class="message-sender">you<span class="message-data-time">4m</span></span>
+                                <div class="message">Are we meeting today?</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="chat-message clearfix">
+                    <div class="input-group mb-0">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-send"></i></span>
+                        </div>
+                        <textarea class="scrollbar form-control message-area" name="content" id="content" cols="30"
+                                  rows="3" placeholder="Your message"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

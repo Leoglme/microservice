@@ -1,0 +1,94 @@
+{% extends "layouts/default.twig" %}
+
+{% block content %}
+    <div class="col-lg-12">
+        <div class="chat-app">
+            <div id="plist" class="people-list discussion-list">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search...">
+                </div>
+                <ul class="list-unstyled chat-list mt-2 mb-0">
+                    {% for discussion in discussions %}
+                        <a href="/chat/{{ discussion._id }}" style="text-decoration: none; color: inherit;">
+                            <li class="clearfix">
+                                <img src="/assets/images/no-user.jpg" alt="Vincent">
+                                <div class="about">
+                                    <div class="name">{{ discussion.name }}</div>
+                                    <div class="status"><i class="fa fa-circle online" style="margin-right: 2px;"></i>
+                                        {{ discussion.updatedAt|date('d/m') }} at {{ discussion.updatedAt|date('H:i') }}
+                                    </div>
+                                </div>
+                            </li>
+                        </a>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="chat">
+                {{ include('components/alertError.twig') }}
+                <div class="chat-history">
+                    {% if messages|length > 0 %}
+                        <ul class="m-b-0">
+                            {% for message in messages %}
+                                <li class="clearfix{% if message.user.id == user.id %} my-message {% else %} other-message {% endif %}">
+                                    <img class="message_avatar" src="/assets/images/no-user.jpg"
+                                         alt="{{ message.user.firstname }}">
+                                    <div class="message-data">
+                                            <span class="message-sender">
+                                                {% if message.user %}
+                                                    {{ message.user.firstname }} {{ message.user.lastname }}
+                                                {% else %}
+                                                    anonymous
+                                                {% endif %}
+                                                <span class="message-data-time">{{ message.created_at|date('H:i') }}</span>
+                                            </span>
+                                        <div class="message">{{ message.content }}</div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class="chat-message clearfix" style="min-height: 200px;">
+                    {% if messages|length > 0 %}
+                        <form method="post" action="/addMessage">
+                            <div class="input-group mb-0">
+                                <input type="hidden" name="discussionId" value="{{ discussionId }}">
+                                <textarea class="scrollbar form-control message-area" name="content" id="content"
+                                          cols="30"
+                                          rows="3" placeholder="Your message"></textarea>
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary btn-send">
+                                        <span class=""><i class="fa fa-send"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+            <div id="plist" class="people-list user-list">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search...">
+                </div>
+                <ul class="list-unstyled chat-list mt-2 mb-0">
+                    {% for user in users %}
+                        <li class="clearfix">
+                            <img src="/assets/images/no-user.jpg" alt="Vincent">
+                            <div class="about">
+                                <div class="name">{{ user.firstname }} {{ user.lastname }}</div>
+                                <div class="status"><i class="fa fa-circle offline"></i> left 7 mins ago</div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

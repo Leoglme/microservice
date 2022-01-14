@@ -1,0 +1,40 @@
+{
+  "name": "microservices",
+  "version": "1.0.0",
+  "description": "express js api made with mongoose for microservices chat application",
+  "main": "app.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EpitechWebAcademiePromo2022/W-WEB-250-REN-3-1-microservices-leo.guillaume/tree/main/api_express"
+  },
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "microservices",
+    "slim",
+    "php",
+    "mongo",
+    "mongoose",
+    "message",
+    "chat",
+    "app"
+  ],
+  "author": "Leoglme",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "express-validator": "^6.14.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.2",
+    "nodemon": "^2.0.15",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.3.0"
+  }
+}

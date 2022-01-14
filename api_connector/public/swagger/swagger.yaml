@@ -1,0 +1,919 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Microservices - Slim Connector",
+    "description": "Microservices connector made with `Slim framework` for microservices chat application",
+    "contact": {
+      "email": "contact@dibodev.com",
+      "url": "https://dibodev.com",
+      "name": "Leoglme"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/Leoglme"
+    },
+    "version": "0.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000"
+    },
+    {
+      "url": "http://localhost:8080"
+    },
+    {
+      "url": "http://localhost:5000"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "BearerToken": {
+        "title": "BearerToken",
+        "properties": {
+          "Authorization": {
+            "type": "string",
+            "example": "Bearer token"
+          }
+        },
+        "type": "object"
+      },
+      "Message": {
+        "title": "Message",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true,
+            "example": 1
+          },
+          "sender": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true,
+            "example": 1
+          },
+          "discussionId": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true,
+            "example": 1
+          },
+          "content": {
+            "type": "string",
+            "example": "a simple message"
+          }
+        },
+        "type": "object"
+      },
+      "MessageViewModel": {
+        "title": "MessageViewModel",
+        "properties": {
+          "discussionId": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "sender": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "content": {
+            "type": "string",
+            "example": "a simple message"
+          }
+        },
+        "type": "object"
+      },
+      "User": {
+        "title": "User",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true,
+            "example": 1
+          },
+          "email": {
+            "type": "string",
+            "example": "johndoe@gmail.com"
+          },
+          "firstname": {
+            "type": "string",
+            "example": "doe"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "john"
+          }
+        },
+        "type": "object"
+      },
+      "UserCreateViewModel": {
+        "title": "UserCreateViewModel",
+        "properties": {
+          "firstname": {
+            "type": "string",
+            "example": "doe"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "john"
+          },
+          "email": {
+            "type": "string",
+            "example": "johndoe@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password"
+          }
+        },
+        "type": "object"
+      },
+      "UserLoginViewModel": {
+        "title": "UserLoginViewModel",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "johndoe@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password"
+          }
+        },
+        "type": "object"
+      },
+      "Discussion": {
+        "title": "Discussion",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "The New Discussion"
+          },
+          "users": {
+            "type": "array",
+            "example": ["507f191e810c19729de860ea", "507f191e810c19729de860ea"]
+          }
+        },
+        "type": "object"
+      },
+      "UsersViewModel": {
+        "title": "UsersViewModel",
+        "properties": {
+          "users": {
+            "type": "array",
+            "example": ["507f191e810c19729de860ea", "507f191e810c19729de860ea"]
+          }
+        },
+        "type": "object"
+      },
+      "LightDiscussion": {
+        "title": "LightDiscussion",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "The New Discussion"
+          }
+        },
+        "type": "object"
+      },
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "Bearer"
+      }
+    }
+  },
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+            "Auth"
+        ],
+        "operationId": "login",
+        "requestBody": {
+          "description": "User email used to create account.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginViewModel"
+              }
+            }
+          },
+          "name": "body",
+          "in": "body"
+        },
+        "responses": {
+          "200": {
+            "description": "login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BearerToken"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/discussion": {
+      "post": {
+        "tags": [
+            "Discussion"
+        ],
+        "description": "Create a discussion",
+        "operationId": "DiscussionList",
+        "requestBody": {
+          "description": "Create a discussion",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LightDiscussion"
+              }
+            }
+          },
+          "name": "body",
+          "in": "body"
+        },
+        "responses": {
+          "200": {
+            "description": "login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Discussion"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [ ]
+          }
+        ]
+      },
+    },
+    "/discussion/list": {
+      "get": {
+        "tags": [
+            "Discussion"
+        ],
+        "description": "Returns the list of all the discussions",
+        "operationId": "getDiscussions",
+        "responses": {
+          "200": {
+            "description": "list all discussions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Discussion"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/discussion/isset/{id}": {
+      "get": {
+        "tags": [
+            "Discussion"
+        ],
+        "operationId": "issetDiscussion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Discussion id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [ ]
+          }
+        ]
+      },
+    },
+    "/discussion/{id}": {
+      "get": {
+        "tags": [
+            "Discussion"
+        ],
+        "operationId": "getDiscussionById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Discussion id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get discussion by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Discussion"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+            "Discussion"
+        ],
+        "operationId": "deleteDiscussion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Discussion id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "delete a discussion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Discussion"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [ ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+            "Discussion"
+        ],
+        "description": "Update a discussion",
+        "operationId": "updateDiscussion",
+        "requestBody": {
+          "description": "Update a discussion",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Discussion"
+              }
+            }
+          },
+          "name": "body",
+          "in": "body"
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Discussion id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Discussion"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/discussion/users/{id}": {
+      "put": {
+        "tags": [
+            "Discussion"
+        ],
+        "description": "Add users into a discussion",
+        "operationId": "addUserDiscussion",
+        "requestBody": {
+          "description": "Add users into a discussion",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsersViewModel"
+              }
+            }
+          },
+          "name": "body",
+          "in": "body"
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Discussion id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Discussion"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/message": {
+      "post": {
+        "tags": [
+            "Message"
+        ],
+        "operationId": "createMessage",
+        "requestBody": {
+          "description": "request body used to create message.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageViewModel"
+              }
+            }
+          },
+          "name": "body",
+          "in": "body"
+        },
+        "responses": {
+          "200": {
+            "description": "create new message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/messages/{discussionId}": {
+      "get": {
+        "tags": [
+            "Message"
+        ],
+        "operationId": "DiscussionMessages",
+        "parameters": [
+          {
+            "name": "discussionId",
+            "in": "path",
+            "description": "discussion id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get messages by discussion id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [ ]
+          }
+        ]
+      }
+    },
+    "/message/{id}": {
+      "get": {
+        "tags": [
+            "Message"
+        ],
+        "operationId": "getMessageById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Message id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get message by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+            "Message"
+        ],
+        "operationId": "deleteMessage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Message id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "delete a message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/messages": {
+      "get": {
+        "tags": [
+            "Message"
+        ],
+        "operationId": "getMessages",
+        "responses": {
+          "200": {
+            "description": "list all messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/message/update/{id}": {
+      "put": {
+        "tags": [
+            "Message"
+        ],
+        "operationId": "updateMessage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Message id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "request body used to create message.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageViewModel"
+              }
+            }
+          },
+          "name": "body",
+          "in": "body"
+        },
+        "responses": {
+          "200": {
+            "description": "update a message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+            "User"
+        ],
+        "operationId": "createUser",
+        "requestBody": {
+          "description": "request body used to create account.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateViewModel"
+              }
+            }
+          },
+          "name": "body",
+          "in": "body"
+        },
+        "responses": {
+          "200": {
+            "description": "create a users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": [
+            "User"
+        ],
+        "operationId": "getUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get user with your id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+            "User"
+        ],
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "delete a single user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+            "User"
+        ],
+        "operationId": "getUsers",
+        "responses": {
+          "200": {
+            "description": "list all users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/user/update/{id}": {
+      "put": {
+        "tags": [
+            "User"
+        ],
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "request body used to update user.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateViewModel"
+              }
+            }
+          },
+          "name": "body",
+          "in": "body"
+        },
+        "responses": {
+          "200": {
+            "description": "update a user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "User",
+      "description": "Users api"
+    },
+    {
+      "name": "Discussion",
+      "description": "Discussion node api"
+    },
+    {
+      "name": "Auth",
+      "description": "Auth api"
+    },
+    {
+      "name": "Message",
+      "description": "Message api"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+    "name": "leoglme/slim-connector",
+    "description": "Microservices connector made with Slim framework for microservices chat application",
+    "keywords": [
+        "microframework",
+        "rest",
+        "router",
+        "psr7"
+    ],
+    "homepage": "https://github.com/EpitechWebAcademiePromo2022/W-WEB-250-REN-3-1-microservices-leo.guillaume",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Léo Guillaume",
+            "email": "contact@dibodev.com",
+            "homepage": "https://dibodev.com/"
+        }
+    ],
+    "require": {
+        "php": "^7.0 || ^8.0",
+        "ext-json": "*",
+        "ext-pdo": "*",
+        "doctrine/inflector": "1.4.4",
+        "firebase/php-jwt": "5.0.0",
+        "guzzlehttp/guzzle": "^7.4",
+        "illuminate/database": "8.40.0",
+        "monolog/monolog": "^2.3",
+        "php-di/php-di": "^6.3",
+        "respect/validation": "^2.2",
+        "slim/psr7": "^1.5",
+        "slim/slim": "^4.9",
+        "slim/twig-view": "^3.2",
+        "twbs/bootstrap": "5.0.2",
+        "zircote/swagger-php": "4.0.2"
+    },
+    "require-dev": {
+        "jangregor/phpstan-prophecy": "^0.8.1",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpstan/extension-installer": "^1.1.0",
+        "phpstan/phpstan": "^0.12.99",
+        "phpunit/phpunit": "^9.5.10",
+        "squizlabs/php_codesniffer": "^3.6"
+    },
+    "config": {
+        "process-timeout": 0,
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "start": "php -S localhost:8000 -t public/ -ddisplay_errors=1",
+        "swagger:json": "./vendor/bin/openapi --output ./public/swagger/swagger.json ./src/",
+        "swagger:yaml": "./vendor/bin/openapi --output ./public/swagger/swagger.yaml ./src/",
+        "swagger:start": "open-swagger-ui ./public/swagger/swagger.json --open",
+        "swagger:dev": "swagger-ui-watcher ./public/swagger/swagger.json",
+        "test": "phpunit"
+    }
+}
