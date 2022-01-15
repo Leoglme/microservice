@@ -15,7 +15,7 @@
 ![Language](https://img.shields.io/badge/language-javascript-yellow.svg?style=flat)
 ![Language](https://img.shields.io/badge/language-scss-ce679a.svg?style=flat)
 
-###React app
+##React app
 
 <img alt="hero" src="https://dibodev-files.s3.eu-west-3.amazonaws.com/Screenshot_26.png">
 
@@ -33,7 +33,7 @@
 
 ## Install
 
-###React app
+##React app
 
 ```sh
 $ git clone https://github.com/EpitechWebAcademiePromo2022
@@ -42,7 +42,7 @@ $ yarn install || npm install
 $ yarn start || npm run start
 ```
 
-###Slim api
+##Slim api
 
 ```sh
 $ git clone https://github.com/EpitechWebAcademiePromo2022
@@ -51,7 +51,7 @@ $ composer install
 $ composer start
 ```
 
-###Node api
+##Node api
 
 ```sh
 $ git clone https://github.com/EpitechWebAcademiePromo2022
@@ -60,7 +60,7 @@ $ yarn install || npm install
 $ yarn start || npm run start
 ```
 
-###Connector api
+##Connector api
 
 ```sh
 $ git clone https://github.com/EpitechWebAcademiePromo2022
